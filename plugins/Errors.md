@@ -30,3 +30,13 @@ https://github.com/matplotlib/matplotlib/blob/v3.5.0/matplotlibrc.template
 or from the matplotlib source distribution
 
 
+## Omero Plugin
+
+Error 1
+Could not load loadimagesfromomero_SW
+Traceback (most recent call last):
+  File "c:\programdata\anaconda3\envs\cellprofiler\lib\site-packages\cellprofiler_core\utilities\core\modules\__init__.py", line 71, in add_module
+    m = __import__(mod, globals(), locals(), ["__all__"], 0)
+  File "C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero_SW.py", line 48, in <module>
+    from cellprofiler_core.modules import default_cpimage_name
+ImportError: cannot import name 'default_cpimage_name' from partially initialized module 'cellprofiler_core.modules' (most likely due to a circular import) (c:\programdata\anaconda3\envs\cellprofiler\lib\site-packages\cellprofiler_core\modules\__init__.py)
