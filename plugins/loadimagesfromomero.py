@@ -180,7 +180,7 @@ def create_omero_gateway(
 
 class loadimagesfromomero(cpm.Module):
     variable_revision_number = 1
-    module_name = "OmeroLoadImages"
+    module_name = "LoadImagesFromOmero"
     category = "File Processing"
 
     # Make the omero client object an attribute of this class, because otherwise the
