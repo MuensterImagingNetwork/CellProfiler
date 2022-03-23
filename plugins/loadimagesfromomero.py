@@ -45,8 +45,8 @@ import cellprofiler_core.setting as cps
 
 # get the default cellprofiler image names for the different
 # channels of an omero image from the loadimages module
-from cellprofiler_core.modules import default_cpimage_name
-
+#from cellprofiler_core.modules import default_cpimage_name
+import cellprofiler_core.modules
 import omero
 from omero.rtypes import rlong
 from omero.rtypes import rint
@@ -145,13 +145,13 @@ M_IMAGE_ID = "%s_%s" % (C_IMAGE, FTR_ID)
 M_PIXELS_ID = "%s_%s" % (C_PIXELS, FTR_ID)
 
 """The channel number """
-M_C = "%s_%s" % (cpmeas.C_METADATA, FTR_C)
+#M_C = "%s_%s" % (cpmeas.C_METADATA, FTR_C)
 
 """The Z depth measurement name """
-M_Z = "%s_%s" % (cpmeas.C_METADATA, FTR_Z)
+#M_Z = "%s_%s" % (cpmeas.C_METADATA, FTR_Z)
 
 """The Time index measurement name """
-M_T = "%s_%s" % (cpmeas.C_METADATA, FTR_T)
+#M_T = "%s_%s" % (cpmeas.C_METADATA, FTR_T)
 
 """The provider name for the omero image provider"""
 P_OMERO = "OmeroImageProvider"
@@ -178,7 +178,7 @@ def create_omero_gateway(
     return omero_client, omero_session, omero_gateway
 
 
-class OmeroLoadImages(cpm.Module):
+class loadimagesfromomero(cpm.Module):
     variable_revision_number = 1
     module_name = "OmeroLoadImages"
     category = "File Processing"
@@ -769,7 +769,7 @@ class OmeroLoadImages(cpm.Module):
 
 # TODO: add exception handling
 # TODO: reconnect when gateway has been disconnected?
-class OmeroImageProvider(cpimage.AbstractImageProvider):
+class OmeroImageProvider(cpimage.AbstractImage):
     """Provide a single image based on omero pixels id"""
 
     def __init__(self, name, gateway, pixels_id, z=0, c=0, t=0):

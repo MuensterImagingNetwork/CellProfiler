@@ -57,3 +57,12 @@ Traceback (most recent call last):
   File "C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero_SW.py", line 772, in <module>
     class OmeroImageProvider(cpimage.AbstractImageProvider):
 AttributeError: module 'cellprofiler_core.image' has no attribute 'AbstractImageProvider'
+
+Error 4
+Could not load loadimagesfromomero_SW
+Traceback (most recent call last):
+  File "c:\programdata\anaconda3\envs\cellprofiler\lib\site-packages\cellprofiler_core\utilities\core\modules\__init__.py", line 76, in add_module
+    cp_module = find_cpmodule(m)
+  File "c:\programdata\anaconda3\envs\cellprofiler\lib\site-packages\cellprofiler_core\utilities\core\modules\__init__.py", line 58, in find_cpmodule
+    raise ValueError(
+ValueError: Could not find cellprofiler_core.module.Module class in C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero_SW.py
