@@ -145,13 +145,13 @@ M_IMAGE_ID = "%s_%s" % (C_IMAGE, FTR_ID)
 M_PIXELS_ID = "%s_%s" % (C_PIXELS, FTR_ID)
 
 """The channel number """
-M_C = "%s_%s" % (cpmeas.C_METADATA, FTR_C)
+#M_C = "%s_%s" % (cpmeas.C_METADATA, FTR_C)
 
 """The Z depth measurement name """
-M_Z = "%s_%s" % (cpmeas.C_METADATA, FTR_Z)
+#M_Z = "%s_%s" % (cpmeas.C_METADATA, FTR_Z)
 
 """The Time index measurement name """
-M_T = "%s_%s" % (cpmeas.C_METADATA, FTR_T)
+#M_T = "%s_%s" % (cpmeas.C_METADATA, FTR_T)
 
 """The provider name for the omero image provider"""
 P_OMERO = "OmeroImageProvider"
