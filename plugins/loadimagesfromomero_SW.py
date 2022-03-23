@@ -769,7 +769,7 @@ class OmeroLoadImages(cpm.Module):
 
 # TODO: add exception handling
 # TODO: reconnect when gateway has been disconnected?
-class OmeroImageProvider(cpimage.AbstractImageProvider):
+class OmeroImageProvider(cpimage.AbstractImage):
     """Provide a single image based on omero pixels id"""
 
     def __init__(self, name, gateway, pixels_id, z=0, c=0, t=0):
