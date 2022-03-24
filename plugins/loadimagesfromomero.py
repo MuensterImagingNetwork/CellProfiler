@@ -42,12 +42,12 @@ import cellprofiler_core.module as cpm
 import cellprofiler_core.measurement as cpmeas
 import cellprofiler_core.preferences as cpp
 import cellprofiler_core.setting as cps
-#from cellprofiler_core.setting import text
+
 
 # get the default cellprofiler image names for the different
 # channels of an omero image from the loadimages module
 #from cellprofiler_core.modules import default_cpimage_name
-import cellprofiler_core.modules
+#import cellprofiler_core.modules as cpmm
 import omero
 from omero.rtypes import rlong
 from omero.rtypes import rint
@@ -179,7 +179,7 @@ def create_omero_gateway(
     return omero_client, omero_session, omero_gateway
 
 
-class loadimagesfromomero(cpm.Module):
+class omeroimages(cpm.Module):
     variable_revision_number = 1
     module_name = "LoadImagesFromOmero"
     category = "File Processing"
@@ -342,8 +342,9 @@ class loadimagesfromomero(cpm.Module):
         group.append("divider", cps.Divider(line=True))
         group.append(
             "cpimage_name",
-            cps.ImageNameProvider("Image name", default_cpimage_name(cpimg_index)),
+            cps.text.ImageName("Image name", default_cpimage_name(cpimg_index)),
         )
+
         channel_numbers = [str(x) for x in range(0, max(10, len(self.channels) + 2))]
         group.append(
             "channel_number",
