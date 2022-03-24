@@ -42,6 +42,7 @@ import cellprofiler_core.module as cpm
 import cellprofiler_core.measurement as cpmeas
 import cellprofiler_core.preferences as cpp
 import cellprofiler_core.setting as cps
+#from cellprofiler_core.setting import text
 
 # get the default cellprofiler image names for the different
 # channels of an omero image from the loadimages module
@@ -191,20 +192,21 @@ class loadimagesfromomero(cpm.Module):
     omero_gateway = None
 
     def create_settings(self):
-        self.omero_host = cps.Text(
+
+        self.omero_host = cps.text.Text(
             "Host address",
             DEFAULT_OMERO_HOST,
             doc="""Host address of an omero server. Can be an ip-address or a hostname.""",
         )
-        self.omero_port = cps.Integer(
+        self.omero_port = cps.text.Integer(
             "Port", DEFAULT_OMERO_PORT, doc="""Port of an omero server."""
         )
-        self.omero_username = cps.Text(
+        self.omero_username = cps.text.Text(
             "Username",
             DEFAULT_OMERO_USERNAME,
             doc="""Username is required for login into an omero server.""",
         )
-        self.omero_password = cps.Text(
+        self.omero_password = cps.text.Text(
             "Password",
             DEFAULT_OMERO_PASSWORD,
             doc="""Password is required for login into an omero server.""",

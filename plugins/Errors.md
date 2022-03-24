@@ -66,3 +66,18 @@ Traceback (most recent call last):
   File "c:\programdata\anaconda3\envs\cellprofiler\lib\site-packages\cellprofiler_core\utilities\core\modules\__init__.py", line 58, in find_cpmodule
     raise ValueError(
 ValueError: Could not find cellprofiler_core.module.Module class in C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero_SW.py
+
+
+
+# New conda environment - cp_omero
+(cp_omero) C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero>cellprofiler
+Failed to load LoadImagesFromOmero
+Traceback (most recent call last):
+  File "C:\Users\MiN_Acc1\AppData\Roaming\Python\Python38\site-packages\cellprofiler_core\utilities\core\modules\__init__.py", line 96, in add_module
+    cp_module()
+  File "C:\Users\MiN_Acc1\AppData\Roaming\Python\Python38\site-packages\cellprofiler_core\module\_module.py", line 88, in __init__
+    self.create_settings()
+  File "C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero.py", line 194, in create_settings
+    self.omero_host = cps.Text(
+AttributeError: module 'cellprofiler_core.setting' has no attribute 'Text'
+could not load these modules: loadimagesfromomero
