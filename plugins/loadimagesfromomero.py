@@ -52,6 +52,7 @@ import omero
 from omero.rtypes import rlong
 from omero.rtypes import rint
 from omero_version import omero_version
+from omero.gateway import BlitzGateway
 
 # omero beta 4 versions that did not fully support High Content Screening (HCS)
 OMERO_VERSION4_PREHCS = ["Beta-4.0.1", "Beta-4.0.2"]
@@ -62,7 +63,7 @@ if omero_version in OMERO_VERSION4_PREHCS:
     # This import is required because of an issue with forward-declarations in Ice
     import omero_api_Gateway_ice
 
-    DEFAULT_OMERO_PORT = 4063
+    DEFAULT_OMERO_PORT = 4064
     INT_8 = "int8"
     UINT_8 = "uint8"
     INT_16 = "int16"
@@ -83,8 +84,8 @@ MS_PLATE = "Plate"
 #
 # Defaults for the module settings
 #
-DEFAULT_OMERO_HOST = "localhost"
-DEFAULT_OMERO_USERNAME = ""
+DEFAULT_OMERO_HOST = "omero-imaging.uni-muenster.de"
+DEFAULT_OMERO_USERNAME = "sweische"
 DEFAULT_OMERO_PASSWORD = ""
 DEFAULT_OMERO_OBJECT = MS_IMAGE
 DEFAULT_OMERO_OBJECT_ID = 1
@@ -168,16 +169,20 @@ def create_omero_gateway(
 ):
     """Connect to an omero server and create an omero gateway instance"""
     try:
-        omero_client = omero.client(host, port)
-        omero_session = omero_client.createSession(username, password)
-        omero_gateway = omero_session.createGateway()
+        #omero_client = omero.client(host, port)
+        #omero_session = omero_client.createSession(username, password)
+        #omero_gateway = omero_session.createGateway()
+        omero_gateway = BlitzGateway(username, password,
+                            host=host, port=port, secure=True)
+        omero_gateway.connect()
+        omero_gateway.c.enableKeepAlive(60)
     except Exception as err:
         raise RuntimeError(
             "Unable to connect to OMERO server %s@%s:%d" % (username, host, int(port)),
             err,
         )
-    return omero_client, omero_session, omero_gateway
-
+    #return omero_client, omero_session, omero_gateway
+    return omero_gateway
 
 class LoadImagesFromOmero(cpm.Module):
     variable_revision_number = 1
@@ -240,12 +245,15 @@ class LoadImagesFromOmero(cpm.Module):
         """Create omero gateway based on module settings """
         if self.omero_client is not None:
             self.omero_client.closeSession()
-        self.omero_client, self.omero_session, self.omero_gateway = create_omero_gateway(
+
+        self.omero_gateway = create_omero_gateway(
             self.omero_host.value,
             self.omero_port.value,
             self.omero_username.value,
             self.omero_password.value,
         )
+
+        return self.omero_gateway
 
     def get_omero_plate(self, plate_id):
         """Get plate from omero
@@ -257,11 +265,11 @@ class LoadImagesFromOmero(cpm.Module):
     def load_channels(self):
         """Add and set channels based on an image from omero """
         try:
-            self.create_omero_gateway()
+            self.omero_gateway = self.create_omero_gateway()
             id = int(self.omero_object_id.value)
 
             if self.omero_object == MS_IMAGE:
-                omero_image = self.omero_gateway.getImage(id)
+                omero_image = self.omero_gateway.getObject("Image", id)
             elif self.omero_object == MS_DATASET:
                 images_from_dataset = self.get_images_from_dataset(id, 1)
                 if len(images_from_dataset) == 0:
@@ -437,7 +445,7 @@ class LoadImagesFromOmero(cpm.Module):
             print("omero object id = %d" % self.omero_object_id.value)
             print("omero object type = %s" % self.omero_object.value)
 
-        self.create_omero_gateway()
+        self.omero_gateway = self.create_omero_gateway()
         if self.omero_object == MS_IMAGE:
             omero_image_list = [self.omero_gateway.getImage(self.omero_object_id.value)]
         elif self.omero_object == MS_DATASET:

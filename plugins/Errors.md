@@ -129,3 +129,11 @@ Traceback (most recent call last):
   File "C:\Users\MiN_Acc1\Documents\GitHub\CellProfiler_Omero\plugins\loadimagesfromomero.py", line 345, in add_channelfn
     cps.text.ImageName("Image name", default_cpimage_name(cpimg_index)),
 NameError: name 'default_cpimage_name' is not defined
+
+### Omero-related
+
+Error 5 
+Cannot create gateway
+changed omero-py installation
+conda install -c ome omero-py
+
