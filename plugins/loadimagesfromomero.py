@@ -211,15 +211,15 @@ class loadimagesfromomero(cpm.Module):
             DEFAULT_OMERO_PASSWORD,
             doc="""Password is required for login into an omero server.""",
         )
-        self.omero_object = cps.Choice(
+        self.omero_object = cps.choice.Choice(
             "Object to load", [MS_IMAGE, MS_DATASET, MS_PLATE], DEFAULT_OMERO_OBJECT
         )
-        self.omero_object_id = cps.Integer(
+        self.omero_object_id = cps.text.Integer(
             "Object id",
             DEFAULT_OMERO_OBJECT_ID,
             doc="""This is a number that omero uses to uniquely identify an object, be it a dataset, plate, or image.""",
         )
-        self.load_channels = cps.DoSomething(
+        self.load_channels = cps.do_something.DoSomething(
             "", "Load channels from OMERO", self.load_channels
         )
 
