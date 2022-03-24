@@ -47,7 +47,7 @@ import cellprofiler_core.setting as cps
 # get the default cellprofiler image names for the different
 # channels of an omero image from the loadimages module
 #from cellprofiler_core.modules import default_cpimage_name
-#import cellprofiler_core.modules as cpmm
+import cellprofiler_core.modules as cpmm
 import omero
 from omero.rtypes import rlong
 from omero.rtypes import rint
@@ -179,9 +179,9 @@ def create_omero_gateway(
     return omero_client, omero_session, omero_gateway
 
 
-class omeroimages(cpm.Module):
+class LoadImagesFromOmero(cpm.Module):
     variable_revision_number = 1
-    module_name = "LoadImagesFromOmero"
+    module_name = "loadimagesfromomero"
     category = "File Processing"
 
     # Make the omero client object an attribute of this class, because otherwise the
@@ -232,7 +232,7 @@ class omeroimages(cpm.Module):
         self.add_channelfn(False)
 
         # Button for adding other channels
-        self.add_channel = cps.DoSomething(
+        self.add_channel = cps.do_something.DoSomething(
             "", "Add another channel", self.add_channelfn
         )
 
@@ -306,7 +306,7 @@ class omeroimages(cpm.Module):
                 try:
                     omero_channel_name = omero_channel.getName().getValue().strip()
                 except:
-                    omero_channel_name = default_cpimage_name(channel_number)
+                    omero_channel_name = cpmm.default_cpimage_name(channel_number)
                 self.add_channelfn(channel_number != 0)
                 self.channels[-1].cpimage_name.set_value(omero_channel_name)
                 self.channels[-1].channel_number.set_value(str(channel_number))
@@ -340,15 +340,16 @@ class omeroimages(cpm.Module):
             cpimg_index += 1
 
         group.append("divider", cps.Divider(line=True))
+        imagename = "test"
         group.append(
             "cpimage_name",
-            cps.text.ImageName("Image name", default_cpimage_name(cpimg_index)),
-        )
+            cps.text.ImageName("Image name", imagename),
+        ) #cps.text.ImageName("Image name", default_cpimage_name(cpimg_index))
 
         channel_numbers = [str(x) for x in range(0, max(10, len(self.channels) + 2))]
         group.append(
             "channel_number",
-            cps.Choice(
+            cps.choice.Choice(
                 "Channel number:",
                 channel_numbers,
                 channel_numbers[len(self.channels) - 1],
